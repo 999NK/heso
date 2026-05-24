@@ -38,10 +38,15 @@ export default function CTA() {
            transition={{ delay: 0.2 }}
            className="flex flex-col sm:flex-row justify-center gap-4 relative z-10"
          >
-           <button className="px-8 py-4 bg-[#6D28D9] text-white font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-[#5B21B6] transition-colors shadow-lg shadow-[#6D28D9]/20">
+           <a 
+             href="https://wa.me/5535991319992?text=Olá!%20Gostaria%20de%20agendar%20uma%20demonstração%20das%20soluções%20da%20HESO." 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             className="px-8 py-4 bg-[#6D28D9] text-white font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-[#5B21B6] transition-colors shadow-lg shadow-[#6D28D9]/20"
+           >
              Agendar demonstração
              <ArrowRight className="w-4 h-4" />
-           </button>
+           </a>
            <a href="https://wa.me/5535991319992" target="_blank" rel="noopener noreferrer" className="px-8 py-4 border border-white/10 text-white font-semibold rounded-xl hover:bg-white/5 transition-colors flex justify-center items-center">
              Falar com especialista
            </a>

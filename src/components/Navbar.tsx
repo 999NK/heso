@@ -23,9 +23,6 @@ export default function Navbar() {
         </div>
 
         <div className="hidden md:flex items-center gap-4">
-          <button className="text-sm font-medium text-gray-400 hover:text-white transition-colors">
-            Login
-          </button>
           <a href="https://wa.me/5535991319992" target="_blank" rel="noopener noreferrer" className="px-5 py-2 bg-[#6D28D9] text-white rounded-full text-sm font-semibold hover:bg-[#5B21B6] transition-all shadow-lg shadow-[#6D28D9]/20">
             Falar com especialista
           </a>

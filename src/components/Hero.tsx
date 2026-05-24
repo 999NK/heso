@@ -48,13 +48,21 @@ export default function Hero() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="flex items-center gap-4 pt-4"
           >
-            <button className="px-8 py-4 bg-white text-black font-bold rounded-xl flex items-center gap-2 hover:bg-gray-200 transition-colors">
+            <a 
+              href="https://wa.me/5535991319992?text=Olá!%20Gostaria%20de%20conhecer%20mais%20sobre%20as%20soluções%20da%20HESO." 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="px-8 py-4 bg-white text-black font-bold rounded-xl flex items-center gap-2 hover:bg-gray-200 transition-colors"
+            >
               Começar Agora
               <ArrowRight className="w-4 h-4" />
-            </button>
-            <button className="px-8 py-4 border border-white/10 text-white font-semibold rounded-xl hover:bg-white/5 transition-colors">
+            </a>
+            <a 
+              href="#ecossistema" 
+              className="px-8 py-4 border border-white/10 text-white font-semibold rounded-xl hover:bg-white/5 transition-colors flex items-center justify-center"
+            >
               Ver Ecossistema
-            </button>
+            </a>
           </motion.div>
         </div>
 

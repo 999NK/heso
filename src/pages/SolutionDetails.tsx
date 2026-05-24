@@ -42,9 +42,14 @@ export default function SolutionDetails() {
               </p>
 
               <div className="flex gap-4">
-                <button className="px-8 py-4 bg-[#6D28D9] text-white font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-[#5B21B6] transition-colors shadow-lg shadow-[#6D28D9]/20">
+                <a 
+                  href={`https://wa.me/5535991319992?text=Olá!%20Gostaria%20de%20agendar%20uma%20demonstração%20para%20a%20solução%20${encodeURIComponent(solution.title)}.`}
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="px-8 py-4 bg-[#6D28D9] text-white font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-[#5B21B6] transition-colors shadow-lg shadow-[#6D28D9]/20"
+                >
                   Agendar Demonstração
-                </button>
+                </a>
               </div>
             </motion.div>
 
