@@ -1,6 +1,7 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2 } from 'lucide-react';
 import { motion } from 'motion/react';
+import { useConfig } from '../context/ConfigContext';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CTA from '../components/CTA';
@@ -8,6 +9,7 @@ import { solutionsData } from '../components/Solutions';
 
 export default function SolutionDetails() {
   const { id } = useParams();
+  const { whatsapp } = useConfig();
   const solution = solutionsData.find((s) => s.id === id);
 
   if (!solution) {
@@ -43,7 +45,7 @@ export default function SolutionDetails() {
 
               <div className="flex gap-4">
                 <a 
-                  href={`https://wa.me/5535991319992?text=Olá!%20Gostaria%20de%20agendar%20uma%20demonstração%20para%20a%20solução%20${encodeURIComponent(solution.title)}.`}
+                  href={`https://wa.me/${whatsapp}?text=Olá!%20Gostaria%20de%20agendar%20uma%20demonstração%20para%20a%20solução%20${encodeURIComponent(solution.title)}.`}
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="px-8 py-4 bg-[#6D28D9] text-white font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-[#5B21B6] transition-colors shadow-lg shadow-[#6D28D9]/20"

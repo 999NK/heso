@@ -2,9 +2,11 @@ import { motion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useConfig } from '../context/ConfigContext';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { whatsapp } = useConfig();
 
   return (
     <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-black/40 backdrop-blur-md">
@@ -23,7 +25,10 @@ export default function Navbar() {
         </div>
 
         <div className="hidden md:flex items-center gap-4">
-          <a href="https://wa.me/5535991319992" target="_blank" rel="noopener noreferrer" className="px-5 py-2 bg-[#6D28D9] text-white rounded-full text-sm font-semibold hover:bg-[#5B21B6] transition-all shadow-lg shadow-[#6D28D9]/20">
+          <Link to="/portfolio" className="px-5 py-2 bg-white/5 border border-white/10 text-white rounded-full text-sm font-semibold hover:bg-white/10 hover:border-[#6D28D9]/50 transition-all">
+            Portfólio
+          </Link>
+          <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer" className="px-5 py-2 bg-[#6D28D9] text-white rounded-full text-sm font-semibold hover:bg-[#5B21B6] transition-all shadow-lg shadow-[#6D28D9]/20">
             Falar com especialista
           </a>
         </div>
@@ -43,9 +48,10 @@ export default function Navbar() {
           <a href="/#solucoes" className="text-white/70" onClick={() => setIsOpen(false)}>Soluções</a>
           <a href="/#ecossistema" className="text-white/70" onClick={() => setIsOpen(false)}>Ecossistema</a>
           <a href="/#diferenciais" className="text-white/70" onClick={() => setIsOpen(false)}>Diferenciais</a>
+          <Link to="/portfolio" className="text-white/70" onClick={() => setIsOpen(false)}>Portfólio</Link>
           <Link to="/sobre" className="text-white/70" onClick={() => setIsOpen(false)}>Sobre nós</Link>
           <hr className="border-white/10 my-2" />
-          <a href="https://wa.me/5535991319992" target="_blank" rel="noopener noreferrer" className="block text-center w-full px-5 py-2.5 rounded-full bg-heso-purple text-white text-sm font-medium">
+          <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer" className="block text-center w-full px-5 py-2.5 rounded-full bg-heso-purple text-white text-sm font-medium">
             Falar com especialista
           </a>
         </motion.div>
