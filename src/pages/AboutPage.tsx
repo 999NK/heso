@@ -70,7 +70,7 @@ export default function AboutPage() {
               className="relative w-full rounded-3xl overflow-hidden bg-white/5 border border-white/10 group order-1 md:order-2"
             >
                <div className="absolute inset-0 bg-gradient-to-br from-[#6D28D9]/20 to-transparent z-10 pointer-events-none opacity-50" />
-               <img src="/imgs/sobre nos.png" alt="Sobre a HESO" className="w-full h-auto object-cover opacity-90 group-hover:scale-105 transition-transform duration-700 block" />
+               <img src="/imgs/sobre nos.webp" alt="Sobre a HESO" className="w-full h-auto object-cover opacity-90 group-hover:scale-105 transition-transform duration-700 block" />
             </motion.div>
           </div>
         </section>

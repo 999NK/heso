@@ -51,7 +51,7 @@ export default function Ecosystem() {
              {/* Center Core */}
              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-32 h-32 rounded-full bg-[#6D28D9]/20 border border-[#6D28D9]/50 flex items-center justify-center shadow-[0_0_40px_rgba(109,40,217,0.3)]">
                <div className="w-24 h-24 rounded-full bg-[#6D28D9] flex items-center justify-center shadow-2xl">
-                 <img src="/imgs/logo.png" alt="Logo HESO" className="object-contain" style={{ width: '88.9861px', height: '88.9861px' }} />
+                 <img src="/imgs/logo.webp" alt="Logo HESO" width="89" height="89" className="object-contain" style={{ width: '88.9861px', height: '88.9861px' }} />
                </div>
              </div>
 
@@ -82,7 +82,7 @@ export default function Ecosystem() {
                      <div className="w-12 h-12 rounded-full bg-[#121212] border border-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:border-white/20 transition-all cursor-pointer shadow-lg">
                        <node.icon className="w-5 h-5" />
                      </div>
-                     <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[10px] font-bold text-gray-500 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                     <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[10px] font-bold text-gray-400 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                        {node.label}
                      </div>
                    </div>

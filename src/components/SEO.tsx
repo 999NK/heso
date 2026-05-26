@@ -15,7 +15,7 @@ export default function SEO({
   description = 'Sistemas ERP, automações inteligentes e dashboards de BI sob medida em Lavras MG e região. Escale sua empresa com a tecnologia da Heso.',
   keywords = 'sistemas ERP empresariais, desenvolvimento de software sob medida, automação de processos comerciais, criação de dashboards BI, Lavras MG, tecnologia Lavras, software Lavras, ERP Lavras',
   path = '',
-  image = 'https://heso.com.br/imgs/heso_og_image.png', // Fallback preview image
+  image = 'https://heso.com.br/imgs/logo.webp', // Fallback preview image
   type = 'website',
   noindex = false,
 }: SEOProps) {

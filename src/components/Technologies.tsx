@@ -19,21 +19,21 @@ export default function Technologies() {
       <div className="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-[#050505] to-transparent z-10 pointer-events-none"></div>
       
       <div className="max-w-7xl mx-auto w-full flex flex-col">
-        <div className="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-6">Powered by Modern Technology Stack</div>
+        <div className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-6">Powered by Modern Technology Stack</div>
         
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 md:gap-8">
           <div className="flex-1 w-full overflow-hidden flex items-center relative">
             <div className="animate-marquee gap-12 pr-12">
               {techLogos.map((tech, i) => (
                 <div key={`first-${tech.name}-${i}`} className="flex items-center gap-3 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 hover:scale-110 transition-all duration-300 cursor-pointer">
-                  <img src={tech.url} alt={tech.name} className="w-8 h-8 object-contain" />
+                  <img src={tech.url} alt={tech.name} width="32" height="32" className="w-8 h-8 object-contain" />
                   <span className="font-semibold text-lg text-gray-300">{tech.name}</span>
                 </div>
               ))}
               {/* Duplicating the list to create the seamless infinite scroll effect */}
               {techLogos.map((tech, i) => (
                 <div key={`second-${tech.name}-${i}`} className="flex items-center gap-3 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 hover:scale-110 transition-all duration-300 cursor-pointer">
-                  <img src={tech.url} alt={tech.name} className="w-8 h-8 object-contain" />
+                  <img src={tech.url} alt={tech.name} width="32" height="32" className="w-8 h-8 object-contain" />
                   <span className="font-semibold text-lg text-gray-300">{tech.name}</span>
                 </div>
               ))}

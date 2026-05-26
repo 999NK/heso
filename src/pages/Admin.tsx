@@ -166,7 +166,7 @@ export default function Admin() {
       .map(img => img.trim())
       .filter(img => img !== '');
 
-    const finalImages = imagesArray.length > 0 ? imagesArray : ['/imgs/sobre nos.png'];
+    const finalImages = imagesArray.length > 0 ? imagesArray : ['/imgs/sobre nos.webp'];
 
     if (editingProjectId) {
       // Atualizar projeto existente
@@ -610,7 +610,7 @@ export default function Admin() {
                         <textarea
                           value={newImagesText}
                           onChange={(e) => setNewImagesText(e.target.value)}
-                          placeholder="Ex: /imgs/erp.png, /imgs/bi.png (Você pode usar caminhos locais ou URLs públicas)"
+                          placeholder="Ex: /imgs/erp.webp, /imgs/bi.webp (Você pode usar caminhos locais ou URLs públicas)"
                           rows={2}
                           className="w-full px-4 py-3 bg-black/40 border border-white/10 focus:border-[#6D28D9] focus:outline-none rounded-xl text-white text-sm"
                         />

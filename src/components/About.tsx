@@ -38,7 +38,7 @@ export default function About() {
         >
            <div className="relative h-[320px] w-full rounded-3xl overflow-hidden bg-white/5 border border-white/10 group">
              <div className="absolute inset-0 bg-gradient-to-br from-[#6D28D9]/20 to-transparent z-10 pointer-events-none opacity-50" />
-             <img src="/imgs/inovacao.png" alt="Inovação HESO" className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700 block relative z-0" />
+             <img src="/imgs/inovacao.webp" alt="Inovação HESO" width="1000" height="625" className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700 block relative z-0" />
            </div>
            
            <div className="px-2">

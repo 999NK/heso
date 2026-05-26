@@ -78,7 +78,7 @@ export default function SolutionDetails() {
                 <>
                   <div className="absolute inset-0 bg-gradient-to-br from-[#6D28D9]/20 to-transparent z-0 pointer-events-none opacity-80" />
                   <div className="absolute inset-0 bg-grid-white opacity-10 z-0" />
-                  <img src={solution.image} alt={solution.title} className="w-[85%] h-[85%] object-contain relative z-20 transition-transform duration-700 group-hover:scale-105 drop-shadow-[0_0_30px_rgba(109,40,217,0.2)]" />
+                  <img src={solution.image} alt={solution.title} width="1000" height="666" className="w-[85%] h-[85%] object-contain relative z-20 transition-transform duration-700 group-hover:scale-105 drop-shadow-[0_0_30px_rgba(109,40,217,0.2)]" />
                 </>
               ) : (
                 <>

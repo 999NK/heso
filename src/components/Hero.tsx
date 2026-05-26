@@ -120,7 +120,7 @@ export default function Hero() {
                <Database className="w-5 h-5 text-[#6D28D9]" />
             </div>
             <div>
-              <div className="text-[10px] font-bold text-gray-500 uppercase leading-none mb-1">Automation</div>
+              <div className="text-[10px] font-bold text-gray-400 uppercase leading-none mb-1">Automation</div>
               <div className="text-xs font-semibold">System Active</div>
             </div>
           </motion.div>

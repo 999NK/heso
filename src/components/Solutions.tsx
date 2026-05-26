@@ -3,16 +3,16 @@ import { LayoutDashboard, Store, Briefcase, Bot, Code2, Network, DollarSign, Pac
 import { Link } from 'react-router-dom';
 
 export const solutionsData = [
-  { id: 'erp', icon: Briefcase, title: 'ERP Empresarial', desc: 'Gestão completa, de finanças a recursos humanos.', image: '/imgs/erp.png' },
-  { id: 'pdv', icon: Store, title: 'PDV Inteligente', desc: 'Frente de caixa rápido e perfeitamente integrado.', image: '/imgs/pdv.png' },
-  { id: 'dashboard', icon: LayoutDashboard, title: 'Dashboards & BI', desc: 'Decisões baseadas em dados em tempo real.', image: '/imgs/bi.png' },
-  { id: 'automacao', icon: Bot, title: 'Automação de Processos', desc: 'Elimine tarefas manuais e reduza erros.', image: '/imgs/automacao.png' },
+  { id: 'erp', icon: Briefcase, title: 'ERP Empresarial', desc: 'Gestão completa, de finanças a recursos humanos.', image: '/imgs/erp.webp' },
+  { id: 'pdv', icon: Store, title: 'PDV Inteligente', desc: 'Frente de caixa rápido e perfeitamente integrado.', image: '/imgs/pdv.webp' },
+  { id: 'dashboard', icon: LayoutDashboard, title: 'Dashboards & BI', desc: 'Decisões baseadas em dados em tempo real.', image: '/imgs/bi.webp' },
+  { id: 'automacao', icon: Bot, title: 'Automação de Processos', desc: 'Elimine tarefas manuais e reduza erros.', image: '/imgs/automacao.webp' },
   { id: 'custom', icon: Code2, title: 'Sistemas Sob Medida', desc: 'Software construído para o DNA da sua empresa.' },
-  { id: 'api', icon: Network, title: 'Integrações API', desc: 'Conecte todas as suas ferramentas em um só lugar.', image: '/imgs/api.png' },
-  { id: 'financeiro', icon: DollarSign, title: 'Gestão Financeira', desc: 'Controle de fluxo de caixa, DRE e conciliação.', image: '/imgs/financeiro.png' },
-  { id: 'estoque', icon: PackageOpen, title: 'Controle de Estoque', desc: 'Rastreabilidade e prevenção de perdas.', image: '/imgs/crm.png' },
-  { id: 'crm', icon: Users, title: 'CRM Comercial', desc: 'Aumente vendas e retenha mais clientes.', image: '/imgs/pdv.png' },
-  { id: 'offline', icon: PcCase, title: 'Sistemas Offline/Online', desc: 'Opere sem interrupções e sincronize depois.', image: '/imgs/offlineonine.png' },
+  { id: 'api', icon: Network, title: 'Integrações API', desc: 'Conecte todas as suas ferramentas em um só lugar.', image: '/imgs/api.webp' },
+  { id: 'financeiro', icon: DollarSign, title: 'Gestão Financeira', desc: 'Controle de fluxo de caixa, DRE e conciliação.', image: '/imgs/financeiro.webp' },
+  { id: 'estoque', icon: PackageOpen, title: 'Controle de Estoque', desc: 'Rastreabilidade e prevenção de perdas.', image: '/imgs/crm.webp' },
+  { id: 'crm', icon: Users, title: 'CRM Comercial', desc: 'Aumente vendas e retenha mais clientes.', image: '/imgs/pdv.webp' },
+  { id: 'offline', icon: PcCase, title: 'Sistemas Offline/Online', desc: 'Opere sem interrupções e sincronize depois.', image: '/imgs/offlineonline.webp' },
 ];
 
 export default function Solutions() {
@@ -64,7 +64,7 @@ export default function Solutions() {
                      {item.desc}
                    </p>
                    <div className="flex-1" />
-                   <div className="text-[11px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2 mt-2 group-hover:text-[#6D28D9] transition-colors">
+                   <div className="text-[11px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2 mt-2 group-hover:text-[#6D28D9] transition-colors">
                      Saiba mais <span className="text-base leading-none">&rarr;</span>
                    </div>
                  </div>

@@ -189,7 +189,7 @@ export default function Portfolio() {
                       <div className="w-12 h-12 rounded-xl bg-black/40 border border-white/5 flex items-center justify-center text-gray-400 group-hover:text-[#6D28D9] transition-colors">
                         <ProjectIcon className="w-6 h-6" />
                       </div>
-                      <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest bg-white/5 border border-white/10 px-2.5 py-1 rounded-full group-hover:border-[#6D28D9]/30 group-hover:text-white transition-colors">
+                      <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest bg-white/5 border border-white/10 px-2.5 py-1 rounded-full group-hover:border-[#6D28D9]/30 group-hover:text-white transition-colors">
                         {getCategoryLabel(project.category)}
                       </span>
                     </div>
@@ -208,7 +208,7 @@ export default function Portfolio() {
                         <TrendingUp className="w-3.5 h-3.5" />
                         <span>{project.stat}</span>
                       </div>
-                      <div className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-1 group-hover:text-white transition-colors">
+                      <div className="text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1 group-hover:text-white transition-colors">
                         Ver Detalhes <ArrowUpRight className="w-3.5 h-3.5" />
                       </div>
                     </div>
@@ -292,6 +292,8 @@ export default function Portfolio() {
                       <img 
                         src={selectedProject.images[activeImageIndex]} 
                         alt={`${selectedProject.title} screenshot ${activeImageIndex + 1}`}
+                        width="1000"
+                        height="666"
                         className="max-h-[90%] max-w-[90%] object-contain select-none transition-transform duration-500 hover:scale-[1.02]"
                       />
                       
@@ -303,12 +305,14 @@ export default function Portfolio() {
                         <>
                           <button 
                             onClick={() => handlePrevImage(selectedProject.images.length)}
+                            aria-label="Imagem anterior"
                             className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 border border-white/5 hover:border-white/20 text-white/80 hover:text-white flex items-center justify-center transition-colors cursor-pointer opacity-0 group-hover/gallery:opacity-100"
                           >
                             <ChevronLeft className="w-6 h-6" />
                           </button>
                           <button 
                             onClick={() => handleNextImage(selectedProject.images.length)}
+                            aria-label="Próxima imagem"
                             className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 border border-white/5 hover:border-white/20 text-white/80 hover:text-white flex items-center justify-center transition-colors cursor-pointer opacity-0 group-hover/gallery:opacity-100"
                           >
                             <ChevronRight className="w-6 h-6" />
@@ -335,7 +339,7 @@ export default function Portfolio() {
                                 isActive ? 'border-[#6D28D9] scale-105' : 'border-white/5 hover:border-white/20'
                               }`}
                             >
-                              <img src={img} alt="thumbnail" className="w-full h-full object-cover opacity-80" />
+                              <img src={img} alt="thumbnail" width="80" height="56" className="w-full h-full object-cover opacity-80" />
                               {!isActive && <div className="absolute inset-0 bg-black/20" />}
                             </button>
                           );

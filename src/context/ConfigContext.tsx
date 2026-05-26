@@ -28,9 +28,7 @@ interface ConfigContextType {
   resetConfig: () => void;
 }
 
-const ConfigContext = createContext<ConfigContextType | undefined>(undefined);
-
-// Projetos padrão
+const ConfigContext = createContext<ConfigContextType | undefined>(undefined);// Projetos padrão
 const defaultProjects: Project[] = [
   {
     id: 'efit-seu-personal',
@@ -44,7 +42,7 @@ const defaultProjects: Project[] = [
     solution: 'Desenvolvimento de uma plataforma responsiva instalável (PWA) com dashboard financeiro para o treinador, gestão de planos e um portal interativo onde o aluno acompanha os treinos (com imagens/gifs) direto do celular.',
     result: 'Automação nas cobranças e entrega de uma consultoria fitness profissional, aumentando o engajamento e a retenção dos alunos.',
     highlightColor: 'from-blue-600/20 to-indigo-500/10',
-    images: ['/imgs/crm.png', '/imgs/pdv.png', '/imgs/sobre nos.png']
+    images: ['/imgs/crm.webp', '/imgs/pdv.webp', '/imgs/sobre nos.webp']
   },
   {
     id: 'elipersonal-landing',
@@ -58,7 +56,7 @@ const defaultProjects: Project[] = [
     solution: 'Desenvolvemos uma landing page premium focada na conversão mobile, com velocidade de carregamento sob 0.6s, calculadoras de planos interativas e botões de chamada rápida (CTA) baseados em psicologia de vendas.',
     result: 'Crescimento de 42% no número de contatos qualificados e fechamento de novos alunos no primeiro mês de uso do tráfego pago.',
     highlightColor: 'from-emerald-500/20 to-teal-500/10',
-    images: ['/imgs/sobre nos.png', '/imgs/crm.png', '/imgs/inovacao.png']
+    images: ['/imgs/sobre nos.webp', '/imgs/crm.webp', '/imgs/inovacao.webp']
   },
   {
     id: 'heso-landing',
@@ -72,7 +70,7 @@ const defaultProjects: Project[] = [
     solution: 'Criamos uma arquitetura de página única de alta performance usando TailwindCSS, gráficos interativos que mostram o fluxo de integração dos módulos ERP/BI e animações dinâmicas de transição de tela.',
     result: 'Fortalecimento da marca no mercado de tecnologia e aumento de 60% na taxa de agendamento de reuniões comerciais qualificadas.',
     highlightColor: 'from-[#6D28D9]/20 to-indigo-500/10',
-    images: ['/imgs/logo.png', '/imgs/sobre nos.png', '/imgs/inovacao.png']
+    images: ['/imgs/logo.webp', '/imgs/sobre nos.webp', '/imgs/inovacao.webp']
   },
   {
     id: 'odonto-landing',
@@ -86,7 +84,7 @@ const defaultProjects: Project[] = [
     solution: 'Implementamos um website focado em experiência mobile com exibição de casos antes/depois interativos (slide) e um assistente de agendamento que direciona o lead com o procedimento e horário desejados pré-selecionados.',
     result: 'Facilitação no processo de captação que gerou mais de 180 novos contatos mensais qualificados direto para o comercial da clínica.',
     highlightColor: 'from-sky-500/20 to-blue-500/10',
-    images: ['/imgs/sobre nos.png', '/imgs/inovacao.png', '/imgs/crm.png']
+    images: ['/imgs/sobre nos.webp', '/imgs/inovacao.webp', '/imgs/crm.webp']
   },
   {
     id: 'elipersonal-app',
@@ -100,7 +98,7 @@ const defaultProjects: Project[] = [
     solution: 'Desenvolvemos um sistema web com painel administrativo completo para o profissional e um portal responsivo do aluno. O portal do aluno exibe os treinos com gifs demonstrativos e gera lembretes de cobrança automática.',
     result: 'Redução de 90% do tempo gasto em tarefas operacionais/administrativas do treinador e aumento de 15% na taxa de retenção dos alunos.',
     highlightColor: 'from-amber-500/20 to-orange-500/10',
-    images: ['/imgs/crm.png', '/imgs/pdv.png', '/imgs/sobre nos.png']
+    images: ['/imgs/crm.webp', '/imgs/pdv.webp', '/imgs/sobre nos.webp']
   },
   {
     id: 'heso-erp',
@@ -114,7 +112,7 @@ const defaultProjects: Project[] = [
     solution: 'Construímos um ERP customizado sob medida com sincronização de estoque em tempo real e painéis de BI integrados que compilam dados financeiros e métricas operacionais.',
     result: 'Redução imediata de 30% em perdas de estoque e fornecimento de dados consolidados para tomadas de decisão rápidas de gestão.',
     highlightColor: 'from-violet-500/20 to-purple-500/10',
-    images: ['/imgs/erp.png', '/imgs/bi.png', '/imgs/pdv.png']
+    images: ['/imgs/erp.webp', '/imgs/bi.webp', '/imgs/pdv.webp']
   },
   {
     id: 'heso-financeiro',
@@ -128,7 +126,7 @@ const defaultProjects: Project[] = [
     solution: 'Sistema financeiro integrado que puxa extratos automáticos via API de bancos digitais e realiza conciliação inteligente de recebíveis, gerando relatórios de fluxo de caixa instantâneos.',
     result: 'Economia de mais de 15 horas semanais da equipe administrativa e eliminação completa de divergências contábeis.',
     highlightColor: 'from-emerald-500/20 to-green-500/10',
-    images: ['/imgs/financeiro.png', '/imgs/bi.png', '/imgs/erp.png']
+    images: ['/imgs/financeiro.webp', '/imgs/bi.webp', '/imgs/erp.webp']
   },
   {
     id: 'whatsapp-bot',
@@ -142,7 +140,7 @@ const defaultProjects: Project[] = [
     solution: 'Integramos uma automação de atendimento inteligente que realiza uma triagem conversacional básica, qualifica a empresa do lead e agenda reuniões diretamente no calendário da equipe de vendas.',
     result: 'A equipe comercial passou a falar apenas com leads qualificados, gerando um aumento de 150% na taxa de fechamento de novas soluções.',
     highlightColor: 'from-cyan-500/20 to-teal-500/10',
-    images: ['/imgs/automacao.png', '/imgs/api.png', '/imgs/offlineonline.png']
+    images: ['/imgs/automacao.webp', '/imgs/api.webp', '/imgs/offlineonline.webp']
   },
   {
     id: 'telegram-alerts',
@@ -156,7 +154,7 @@ const defaultProjects: Project[] = [
     solution: 'Criamos scripts em Python rodando em containers Docker que realizam backups automáticos em nuvem diariamente e disparam alertas imediatos para um canal privado do Telegram em caso de anomalia.',
     result: 'Tranquilidade total para a equipe técnica com zero perda de dados relatada desde a implantação.',
     highlightColor: 'from-red-500/20 to-rose-500/10',
-    images: ['/imgs/automacao.png', '/imgs/offlineonline.png', '/imgs/api.png']
+    images: ['/imgs/automacao.webp', '/imgs/offlineonline.webp', '/imgs/api.webp']
   },
   {
     id: 'nfe-invoice-automation',
@@ -170,7 +168,7 @@ const defaultProjects: Project[] = [
     solution: 'Construímos um microsserviço que escuta webhooks do gateway de pagamento (Asaas/Stripe) e emite a NFS-e correspondente de forma assíncrona na API da prefeitura, enviando o PDF diretamente para o e-mail do cliente.',
     result: 'Eliminação total do trabalho manual de faturamento mensal e redução a zero de atrasos ou erros de digitação de notas.',
     highlightColor: 'from-yellow-500/20 to-amber-500/10',
-    images: ['/imgs/api.png', '/imgs/financeiro.png', '/imgs/erp.png']
+    images: ['/imgs/api.webp', '/imgs/financeiro.webp', '/imgs/erp.webp']
   }
 ];
 

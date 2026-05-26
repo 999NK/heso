@@ -13,7 +13,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-10 py-6 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Link to="/">
-            <img src="/imgs/logo.png" alt="Logo HESO" className="w-auto object-contain" style={{ height: '31px' }} />
+            <img src="/imgs/logo.webp" alt="Logo HESO" width="85" height="31" className="w-auto object-contain" style={{ height: '31px' }} />
           </Link>
         </div>
 
@@ -33,7 +33,7 @@ export default function Navbar() {
           </a>
         </div>
 
-        <button className="md:hidden text-white/70" onClick={() => setIsOpen(!isOpen)}>
+        <button className="md:hidden text-white/70" onClick={() => setIsOpen(!isOpen)} aria-label="Menu principal">
           {isOpen ? <X /> : <Menu />}
         </button>
       </div>

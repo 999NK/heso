@@ -10,7 +10,7 @@ export default function Footer() {
           
           <div className="md:col-span-1">
               <div className="flex items-center gap-2 mb-6">
-                <img src="/imgs/logo.png" alt="Logo HESO" className="h-10 w-auto object-contain" />
+                <img src="/imgs/logo.webp" alt="Logo HESO" width="109" height="40" className="h-10 w-auto object-contain" />
               </div>
              <p className="text-sm text-gray-400 leading-relaxed">
                Hydra Ecosystem Solutions Online.<br />
@@ -54,10 +54,10 @@ export default function Footer() {
         </div>
 
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
-           <div className="text-xs text-white/30">
+           <div className="text-xs text-white/50">
              &copy; {new Date().getFullYear()} HESO. Todos os direitos reservados.
            </div>
-           <div className="flex gap-6 text-xs text-white/30">
+           <div className="flex gap-6 text-xs text-white/50">
              <a href="#" className="hover:text-white transition-colors">Termos de Uso</a>
              <a href="#" className="hover:text-white transition-colors">Privacidade</a>
            </div>
