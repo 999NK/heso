@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /adm
+Disallow: /adm/
+
+Sitemap: https://heso.com.br/sitemap.xml
