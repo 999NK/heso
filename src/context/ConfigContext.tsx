@@ -33,6 +33,20 @@ const ConfigContext = createContext<ConfigContextType | undefined>(undefined);
 // Projetos padrão
 const defaultProjects: Project[] = [
   {
+    id: 'efit-seu-personal',
+    title: 'eFit Seu Personal',
+    category: 'sistemas',
+    icon: 'Activity',
+    desc: 'Aplicativo web (PWA) para personal trainers gerenciarem alunos, prescreverem treinos interativos e receberem pagamentos online (efitseupersonal.com.br).',
+    stat: 'App Multi-Plataforma',
+    technologies: ['PWA', 'React', 'Node.js', 'Integração de Pagamentos', 'TailwindCSS'],
+    challenge: 'Profissionais de educação física precisavam centralizar a gestão de treinos, ter gráficos de evolução (peso, medidas corporais) e controlar pagamentos de forma automatizada em um único lugar.',
+    solution: 'Desenvolvimento de uma plataforma responsiva instalável (PWA) com dashboard financeiro para o treinador, gestão de planos e um portal interativo onde o aluno acompanha os treinos (com imagens/gifs) direto do celular.',
+    result: 'Automação nas cobranças e entrega de uma consultoria fitness profissional, aumentando o engajamento e a retenção dos alunos.',
+    highlightColor: 'from-blue-600/20 to-indigo-500/10',
+    images: ['/imgs/crm.png', '/imgs/pdv.png', '/imgs/sobre nos.png']
+  },
+  {
     id: 'elipersonal-landing',
     title: 'EliPersonal Landing Page',
     category: 'landingpage',

@@ -20,6 +20,8 @@ import { Link } from 'react-router-dom';
 import { useConfig, Project } from '../context/ConfigContext';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
+
 
 // Gradientes disponíveis para o Portfólio
 const gradientOptions = [
@@ -236,6 +238,7 @@ export default function Admin() {
 
   return (
     <div className="bg-[#050505] min-h-screen text-white font-sans selection:bg-[#6D28D9]/30 selection:text-white pt-24 relative overflow-hidden flex flex-col justify-between">
+      <SEO noindex={true} title="Painel Administrativo" />
       <Navbar />
 
       {/* Decorative background glows */}

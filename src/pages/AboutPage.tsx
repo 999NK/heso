@@ -2,10 +2,16 @@ import { motion } from 'motion/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CTA from '../components/CTA';
+import SEO from '../components/SEO';
 
 export default function AboutPage() {
   return (
     <div className="bg-[#050505] min-h-screen text-white font-sans selection:bg-[#6D28D9]/30 selection:text-white pt-24">
+      <SEO 
+        title="Quem Somos" 
+        description="Conheça a HESO (Hydra Ecosystem Solutions Online). Desenvolvemos sistemas ERP adaptáveis, automações e dashboards de BI sob medida em Lavras MG e região."
+        path="/sobre"
+      />
       <Navbar />
       <main>
         {/* Header Section */}

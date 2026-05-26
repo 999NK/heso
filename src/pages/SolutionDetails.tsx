@@ -6,6 +6,8 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CTA from '../components/CTA';
 import { solutionsData } from '../components/Solutions';
+import SEO from '../components/SEO';
+
 
 export default function SolutionDetails() {
   const { id } = useParams();
@@ -16,8 +18,19 @@ export default function SolutionDetails() {
     return <Navigate to="/" />;
   }
 
+  const ogImage = 'image' in solution && solution.image
+    ? `https://heso.com.br${solution.image}`
+    : undefined;
+
   return (
     <div className="bg-[#050505] min-h-screen text-white font-sans selection:bg-[#6D28D9]/30 selection:text-white">
+      <SEO 
+        title={solution.title}
+        description={`${solution.desc} Integração completa e em tempo real com o ecossistema HESO. Soluções de tecnologia em Lavras MG e região.`}
+        keywords={`${solution.title.toLowerCase()}, heso, hydra, erp lavras, automacao lavras, dashboards bi lavras, software sob medida lavras`}
+        path={`/solutions/${solution.id}`}
+        image={ogImage}
+      />
       <Navbar />
 
       <main className="pt-32 pb-20">

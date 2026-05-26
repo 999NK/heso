@@ -25,6 +25,8 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CTA from '../components/CTA';
 import { useConfig, Project } from '../context/ConfigContext';
+import SEO from '../components/SEO';
+
 
 // Tipo de Categoria
 type CategoryType = 'all' | 'landingpage' | 'sistemas' | 'automacoes';
@@ -80,6 +82,11 @@ export default function Portfolio() {
 
   return (
     <div className="bg-[#050505] min-h-screen text-white font-sans selection:bg-[#6D28D9]/30 selection:text-white pt-24 relative overflow-hidden">
+      <SEO 
+        title="Portfólio de Projetos" 
+        description="Veja os projetos, sistemas sob medida, sites institucionais e automações comerciais desenvolvidas pela HESO para empresas em Lavras MG e região."
+        path="/portfolio"
+      />
       <Navbar />
 
       {/* Decorative background glow */}
