@@ -5,6 +5,7 @@ import Solutions from '../components/Solutions';
 import Ecosystem from '../components/Ecosystem';
 import Differentials from '../components/Differentials';
 import DashboardMockup from '../components/DashboardMockup';
+import ErpPdvSection from '../components/ErpPdvSection';
 import Technologies from '../components/Technologies';
 import About from '../components/About';
 import CTA from '../components/CTA';
@@ -34,6 +35,7 @@ export default function Home() {
         <Ecosystem />
         <Differentials />
         <DashboardMockup />
+        <ErpPdvSection />
         <Technologies />
         <About />
         <CTA />

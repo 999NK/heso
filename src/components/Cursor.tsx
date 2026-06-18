@@ -42,9 +42,9 @@ export default function Cursor() {
         <div className="w-1.5 h-1.5 rounded-full bg-white mix-blend-difference" />
       </motion.div>
 
-      {/* Anel com mola */}
+      {/* Anel */}
       <motion.div
-        style={{ x: ringX, y: ringY }}
+        style={{ x, y }}
         className="fixed top-0 left-0 z-[100] pointer-events-none -translate-x-1/2 -translate-y-1/2"
       >
         <motion.div
