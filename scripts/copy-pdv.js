@@ -41,9 +41,10 @@ try {
     }
   }
 
-  // Copia as pastas assets e imgs para dentro de dist/pdv
+  // Copia as pastas assets, imgs e api para dentro de dist/pdv
   copyDir(path.join(distDir, 'assets'), path.join(pdvDir, 'assets'));
   copyDir(path.join(distDir, 'imgs'), path.join(pdvDir, 'imgs'));
+  copyDir(path.join(distDir, 'api'), path.join(pdvDir, 'api'));
 
   console.log('✨ [build] Sucesso: Arquivos compilados duplicados para dist/pdv/ de forma automática.');
 } catch (error) {

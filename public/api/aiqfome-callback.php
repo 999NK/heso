@@ -2,17 +2,47 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
-// Credenciais do aiqfome (Substitua pelas obtidas no portal de desenvolvedores do aiqfome)
-$clientId = 'SEU_AIQFOME_CLIENT_ID';
-$clientSecret = 'SEU_AIQFOME_CLIENT_SECRET';
-$redirectUri = 'https://pdv.heso.com.br/api/aiqfome-callback.php';
+// Carrega variáveis de ambiente do arquivo .env
+// O .env fica na raiz do projeto (2 níveis acima de public/api/)
+$envPaths = [
+    __DIR__ . '/../../.env',       // Estrutura local: public/api/ -> raiz
+    __DIR__ . '/../.env',          // Estrutura no servidor: api/ -> raiz
+    dirname($_SERVER['DOCUMENT_ROOT']) . '/.env', // Fora do public_html por segurança
+];
 
-// Conexão com o Banco de Dados Supabase (PostgreSQL)
-$dbHost = 'db.zzuhlxruynaspdjllvgp.supabase.co';
-$dbPort = '5432';
-$dbName = 'postgres';
-$dbUser = 'postgres';
-$dbPass = '1219634360915082003nico';
+$envLoaded = false;
+foreach ($envPaths as $envPath) {
+    if (file_exists($envPath)) {
+        $lines = file($envPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        foreach ($lines as $line) {
+            if (strpos(trim($line), '#') === 0) continue;
+            if (strpos($line, '=') === false) continue;
+            list($key, $value) = explode('=', $line, 2);
+            $key = trim($key);
+            $value = trim($value, " \t\n\r\0\x0B\"'");
+            putenv("$key=$value");
+        }
+        $envLoaded = true;
+        break;
+    }
+}
+
+if (!$envLoaded) {
+    echo json_encode(['error' => 'Arquivo .env não encontrado no servidor.']);
+    exit;
+}
+
+// Credenciais do aiqfome (lidas do .env)
+$clientId     = getenv('AIQFOME_CLIENT_ID');
+$clientSecret = getenv('AIQFOME_CLIENT_SECRET');
+$redirectUri  = getenv('AIQFOME_REDIRECT_URI') ?: 'https://pdv.heso.com.br/api/aiqfome-callback.php';
+
+// Conexão com o Banco de Dados Supabase (lida do .env)
+$dbHost = getenv('SUPABASE_DB_HOST');
+$dbPort = getenv('SUPABASE_DB_PORT') ?: '5432';
+$dbName = getenv('SUPABASE_DB_NAME') ?: 'postgres';
+$dbUser = getenv('SUPABASE_DB_USER') ?: 'postgres';
+$dbPass = getenv('SUPABASE_DB_PASS');
 
 $code = isset($_GET['code']) ? $_GET['code'] : null;
 
@@ -27,11 +57,11 @@ curl_setopt($ch, CURLOPT_URL, 'https://api.aiqfome.com.br/oauth/token');
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
-    'grantType' => 'authorization_code',
-    'clientId' => $clientId,
-    'clientSecret' => $clientSecret,
+    'grantType'         => 'authorization_code',
+    'clientId'          => $clientId,
+    'clientSecret'      => $clientSecret,
     'authorizationCode' => $code,
-    'redirectUri' => $redirectUri
+    'redirectUri'       => $redirectUri
 ]));
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
     'Content-Type: application/x-www-form-urlencoded'
@@ -43,17 +73,17 @@ curl_close($ch);
 
 if ($httpCode !== 200) {
     echo json_encode([
-        'error' => 'Erro ao trocar código por token no aiqfome.',
-        'details' => json_decode($response, true),
+        'error'     => 'Erro ao trocar código por token no aiqfome.',
+        'details'   => json_decode($response, true),
         'http_code' => $httpCode
     ]);
     exit;
 }
 
-$data = json_decode($response, true);
-$accessToken = $data['accessToken'];
+$data         = json_decode($response, true);
+$accessToken  = $data['accessToken'];
 $refreshToken = isset($data['refreshToken']) ? $data['refreshToken'] : null;
-$expiresIn = isset($data['expiresIn']) ? $data['expiresIn'] : 21600;
+$expiresIn    = isset($data['expiresIn']) ? $data['expiresIn'] : 21600;
 
 try {
     // 2. Conecta ao Supabase via PDO PostgreSQL
@@ -67,17 +97,17 @@ try {
         INSERT INTO integrations (provider, access_token, refresh_token, expires_in, updated_at)
         VALUES (:provider, :access_token, :refresh_token, :expires_in, NOW())
         ON CONFLICT (provider) DO UPDATE 
-        SET access_token = EXCLUDED.access_token, 
+        SET access_token  = EXCLUDED.access_token, 
             refresh_token = EXCLUDED.refresh_token, 
-            expires_in = EXCLUDED.expires_in,
-            updated_at = NOW()
+            expires_in    = EXCLUDED.expires_in,
+            updated_at    = NOW()
     ");
 
     $stmt->execute([
-        'provider' => 'aiqfome',
-        'access_token' => $accessToken,
+        'provider'      => 'aiqfome',
+        'access_token'  => $accessToken,
         'refresh_token' => $refreshToken,
-        'expires_in' => $expiresIn
+        'expires_in'    => $expiresIn
     ]);
 
     // Redireciona o lojista de volta para a tela de integração do front com status de sucesso
@@ -86,7 +116,7 @@ try {
 
 } catch (PDOException $e) {
     echo json_encode([
-        'error' => 'Erro ao salvar credenciais no banco de dados.',
+        'error'   => 'Erro ao salvar credenciais no banco de dados.',
         'details' => $e->getMessage()
     ]);
     exit;
