@@ -6,3 +6,9 @@
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.html [L]
 </IfModule>
+
+# Impede o acesso a arquivos de ambiente (.env) pelo navegador
+<FilesMatch "^\.env">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
