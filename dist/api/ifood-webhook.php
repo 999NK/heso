@@ -141,8 +141,8 @@ try {
         ]);
     }
 
-    // Retorna 200 OK para o iFood confirmar recebimento
-    http_response_code(200);
+    // Retorna 202 Accepted para o iFood confirmar recebimento
+    http_response_code(202);
     echo json_encode(['status' => 'ok', 'events_received' => count($events)]);
 
 } catch (PDOException $e) {
