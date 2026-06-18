@@ -1,5 +1,6 @@
-import { motion } from 'motion/react';
-import { LayoutDashboard, Store, Briefcase, Bot, Code2, Network, DollarSign, PackageOpen, Users, PcCase } from 'lucide-react';
+import { useRef, useState, type MouseEvent } from 'react';
+import { motion, useMotionValue, useSpring } from 'motion/react';
+import { LayoutDashboard, Store, Briefcase, Bot, Code2, Network, DollarSign, PackageOpen, Users, PcCase, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const solutionsData = [
@@ -16,61 +17,110 @@ export const solutionsData = [
 ];
 
 export default function Solutions() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState<number | null>(null);
+
+  const previewX = useMotionValue(0);
+  const previewY = useMotionValue(0);
+  const springX = useSpring(previewX, { stiffness: 250, damping: 28, mass: 0.5 });
+  const springY = useSpring(previewY, { stiffness: 250, damping: 28, mass: 0.5 });
+
+  const onMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    previewX.set(e.clientX - rect.left);
+    previewY.set(e.clientY - rect.top);
+  };
+
+  const activeImage = active !== null ? solutionsData[active].image : undefined;
+
   return (
-    <section id="solucoes" className="py-32 relative">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <motion.div
+    <section id="solucoes" className="py-28 md:py-40 relative">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+
+        {/* Cabeçalho da seção */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 md:mb-24">
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/40 mb-6"
+            >
+              <span className="text-heso-violet">01</span> / Soluções
+            </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="font-display font-extrabold uppercase leading-[0.95] tracking-tight text-4xl md:text-6xl"
+            >
+              Um único <br />
+              <span className="text-stroke">ecossistema.</span>
+            </motion.h2>
+          </div>
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] uppercase tracking-widest text-[#6D28D9] font-bold w-fit mb-4"
+            transition={{ delay: 0.2 }}
+            className="text-lg text-gray-400 max-w-sm leading-relaxed"
           >
-            NOSSAS SOLUÇÕES
-          </motion.div>
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-bold tracking-tight mb-6"
-          >
-            Tudo o que sua operação precisa <br className="hidden md:block"/> num <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">único ecossistema</span>.
-          </motion.h2>
+            Tudo o que sua operação precisa, de ponta a ponta. Passe o mouse e explore cada módulo.
+          </motion.p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 items-stretch">
+        {/* Lista interativa */}
+        <div ref={containerRef} onMouseMove={onMouseMove} className="relative">
           {solutionsData.map((item, index) => (
-             <motion.div
-               key={index}
-               initial={{ opacity: 0, y: 20 }}
-               whileInView={{ opacity: 1, y: 0 }}
-               viewport={{ once: true }}
-               transition={{ delay: index * 0.05 }}
-             >
-               <Link 
-                 to={`/solutions/${item.id}`}
-                 className="group bg-white/5 p-6 rounded-2xl hover:bg-white/10 border border-white/5 hover:border-[#6D28D9]/50 transition-all duration-300 block relative overflow-hidden flex flex-col h-full hover:-translate-y-1.5 hover:shadow-[0_10px_40px_-10px_rgba(109,40,217,0.3)]"
-               >
-                 {/* Hover purple glow inside card */}
-                 <div className="absolute inset-0 bg-[#6D28D9]/10 opacity-0 group-hover:opacity-100 transition-opacity blur-2xl pointer-events-none" />
-                 
-                 <div className="relative z-10 flex flex-col h-full">
-                   <div className="w-12 h-12 rounded-xl bg-black/40 flex items-center justify-center mb-6 border border-white/5 text-gray-400 group-hover:text-[#6D28D9] transition-colors">
-                     <item.icon className="w-6 h-6" />
-                   </div>
-                   <h3 className="text-lg font-semibold mb-2 group-hover:text-white transition-colors text-gray-200">{item.title}</h3>
-                   <p className="text-sm text-gray-400 leading-relaxed mb-6">
-                     {item.desc}
-                   </p>
-                   <div className="flex-1" />
-                   <div className="text-[11px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2 mt-2 group-hover:text-[#6D28D9] transition-colors">
-                     Saiba mais <span className="text-base leading-none">&rarr;</span>
-                   </div>
-                 </div>
-               </Link>
-             </motion.div>
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ delay: index * 0.03 }}
+            >
+              <Link
+                to={`/solutions/${item.id}`}
+                onMouseEnter={() => setActive(index)}
+                onMouseLeave={() => setActive(null)}
+                className="group relative flex items-center gap-4 md:gap-8 border-t border-white/10 last:border-b py-6 md:py-8 transition-colors duration-300 hover:border-white/25"
+              >
+                {/* Fundo no hover */}
+                <div className="absolute inset-0 bg-heso-purple/10 scale-y-0 group-hover:scale-y-100 origin-bottom transition-transform duration-300 pointer-events-none" />
+
+                <span className="relative font-mono text-xs text-white/30 w-8 shrink-0 group-hover:text-heso-violet transition-colors">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+
+                <item.icon className="relative w-5 h-5 text-white/30 shrink-0 group-hover:text-heso-violet transition-colors hidden sm:block" strokeWidth={1.5} />
+
+                <h3 className="relative font-display font-bold uppercase tracking-tight text-xl sm:text-2xl md:text-4xl text-gray-300 group-hover:text-white group-hover:translate-x-3 transition-all duration-300">
+                  {item.title}
+                </h3>
+
+                <p className="relative ml-auto max-w-[240px] text-sm text-gray-500 leading-snug text-right hidden lg:block group-hover:text-gray-300 transition-colors">
+                  {item.desc}
+                </p>
+
+                <ArrowUpRight className="relative w-5 h-5 md:w-6 md:h-6 text-white/30 shrink-0 ml-auto lg:ml-0 group-hover:text-heso-violet group-hover:rotate-45 transition-all duration-300" />
+              </Link>
+            </motion.div>
           ))}
+
+          {/* Preview flutuante (desktop) */}
+          <motion.div
+            style={{ x: springX, y: springY }}
+            animate={{ opacity: active !== null && activeImage ? 1 : 0, scale: active !== null && activeImage ? 1 : 0.85 }}
+            transition={{ duration: 0.25 }}
+            className="absolute top-0 left-0 z-30 w-[280px] h-[180px] -translate-y-1/2 ml-8 rounded-2xl overflow-hidden border border-white/15 shadow-2xl shadow-heso-purple/20 pointer-events-none hidden lg:block"
+          >
+            {activeImage && (
+              <img src={activeImage} alt="" className="w-full h-full object-cover" />
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-heso-purple/30 to-transparent" />
+          </motion.div>
         </div>
       </div>
     </section>

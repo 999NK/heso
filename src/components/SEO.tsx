@@ -12,16 +12,16 @@ interface SEOProps {
 
 export default function SEO({
   title,
-  description = 'Sistemas ERP, automações inteligentes e dashboards de BI sob medida em Lavras MG e região. Escale sua empresa com a tecnologia da Heso.',
-  keywords = 'sistemas ERP empresariais, desenvolvimento de software sob medida, automação de processos comerciais, criação de dashboards BI, Lavras MG, tecnologia Lavras, software Lavras, ERP Lavras',
+  description = 'HESO PDV - Sistema de PDV e ERP completo para varejo, controle de estoque, vendas e pedidos online integrados com iFood e aiqfome.',
+  keywords = 'pdv, erp, controle de estoque, vendas, pdv online, integracao ifood, integracao aiqfome, heso pdv, frente de caixa, sistema comercial',
   path = '',
-  image = 'https://heso.com.br/imgs/logo.webp', // Fallback preview image
+  image = 'https://pdv.heso.com.br/imgs/logo.webp', // Fallback preview image
   type = 'website',
   noindex = false,
 }: SEOProps) {
-  const defaultTitle = 'Heso | Sistemas ERP, Automações e Dashboards de BI em Lavras e Região';
-  const fullTitle = title ? `${title} | Heso` : defaultTitle;
-  const canonicalUrl = `https://heso.com.br${path}`;
+  const defaultTitle = 'HESO PDV | Frente de Caixa, Estoque e Pedidos Online';
+  const fullTitle = title ? `${title} | HESO PDV` : defaultTitle;
+  const canonicalUrl = `https://pdv.heso.com.br${path}`;
 
   return (
     <Helmet>
@@ -44,7 +44,7 @@ export default function SEO({
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
       <meta property="og:url" content={canonicalUrl} />
-      <meta property="og:site_name" content="Heso" />
+      <meta property="og:site_name" content="HESO PDV" />
 
       {/* Twitter Cards */}
       <meta name="twitter:card" content="summary_large_image" />

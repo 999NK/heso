@@ -1,58 +1,94 @@
 import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import { useConfig } from '../context/ConfigContext';
+import Magnetic from './Magnetic';
 
 export default function CTA() {
   const { whatsapp } = useConfig();
+
   return (
-    <section className="py-32 relative overflow-hidden">
-      {/* Background glow */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[800px] h-[400px] bg-heso-purple/30 blur-[150px] rounded-full" />
+    <section className="relative overflow-hidden">
+      {/* Marquee de transição */}
+      <div className="border-y border-white/10 py-4 overflow-hidden">
+        <div className="animate-marquee-reverse items-center">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <span key={i} className="flex items-center shrink-0">
+              <span className="font-display font-extrabold uppercase text-3xl md:text-4xl text-stroke px-8 whitespace-nowrap">Vamos construir juntos</span>
+              <span className="text-heso-violet text-2xl select-none" aria-hidden="true">✦</span>
+            </span>
+          ))}
+        </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 relative z-10 text-center bg-white/5 rounded-3xl p-12 md:p-20 border border-white/5 overflow-hidden backdrop-blur-sm">
-         <div className="absolute inset-0 bg-grid-white opacity-10" />
-         
-         <motion.h2 
-           initial={{ opacity: 0, y: 20 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true }}
-           className="text-4xl md:text-6xl font-bold tracking-tight mb-6 relative z-10"
-         >
-           Pronto para <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">transformar</span><br/> sua empresa?
-         </motion.h2>
-         
-         <motion.p
-           initial={{ opacity: 0, y: 20 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true }}
-           transition={{ delay: 0.1 }}
-           className="text-lg text-gray-400 mb-10 max-w-2xl mx-auto relative z-10"
-         >
-           Traga o seu desafio de operação, gestão ou escala. Nossa equipe construirá o motor tecnológico que falta para o seu negócio decolar.
-         </motion.p>
-         
-         <motion.div
-           initial={{ opacity: 0, y: 20 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true }}
-           transition={{ delay: 0.2 }}
-           className="flex flex-col sm:flex-row justify-center gap-4 relative z-10"
-         >
-           <a 
-             href={`https://wa.me/${whatsapp}?text=Olá!%20Gostaria%20de%20agendar%20uma%20demonstração%20das%20soluções%20da%20HESO.`} 
-             target="_blank" 
-             rel="noopener noreferrer" 
-             className="px-8 py-4 bg-[#6D28D9] text-white font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-[#5B21B6] transition-colors shadow-lg shadow-[#6D28D9]/20"
-           >
-             Agendar demonstração
-             <ArrowRight className="w-4 h-4" />
-           </a>
-           <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer" className="px-8 py-4 border border-white/10 text-white font-semibold rounded-xl hover:bg-white/5 transition-colors flex justify-center items-center">
-             Falar com especialista
-           </a>
-         </motion.div>
+      <div className="py-28 md:py-44 relative">
+        {/* Glow de fundo */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="w-[800px] h-[400px] bg-heso-purple/25 blur-[150px] rounded-full" />
+        </div>
+        <div className="absolute inset-0 bg-grid-white opacity-10 pointer-events-none" />
+
+        <div className="max-w-[1400px] mx-auto px-6 md:px-10 relative z-10 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/40 mb-10"
+          >
+            <span className="text-heso-violet">06</span> / Contato
+          </motion.div>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="font-display font-extrabold uppercase leading-[0.95] tracking-tight text-5xl md:text-7xl lg:text-8xl mb-10"
+          >
+            Pronto para <br />
+            <span className="text-stroke">transformar</span> <br />
+            sua empresa<span className="text-heso-violet">?</span>
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15 }}
+            className="text-lg text-gray-400 mb-14 max-w-2xl mx-auto"
+          >
+            Traga o seu desafio de operação, gestão ou escala. Nossa equipe construirá o motor tecnológico que falta para o seu negócio decolar.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.25 }}
+            className="flex flex-col sm:flex-row justify-center items-center gap-5"
+          >
+            <Magnetic>
+              <a
+                href={`https://wa.me/${whatsapp}?text=Olá!%20Gostaria%20de%20agendar%20uma%20demonstração%20das%20soluções%20da%20HESO.`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group px-10 py-5 bg-heso-purple text-white font-bold rounded-full flex items-center justify-center gap-3 hover:bg-heso-violet transition-colors shadow-lg shadow-heso-purple/30 text-lg"
+              >
+                Agendar demonstração
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a
+                href={`https://wa.me/${whatsapp}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-10 py-5 border border-white/15 text-white font-semibold rounded-full hover:border-heso-violet hover:text-heso-violet transition-colors flex justify-center items-center text-lg"
+              >
+                Falar com especialista
+              </a>
+            </Magnetic>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

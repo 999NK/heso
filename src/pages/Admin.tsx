@@ -1,26 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { 
-  Lock, 
-  Settings, 
-  Plus, 
-  Trash2, 
-  LogOut, 
-  CheckCircle, 
-  RefreshCw, 
-  Smartphone, 
-  Instagram, 
+import {
+  Lock,
+  Settings,
+  Plus,
+  Trash2,
+  LogOut,
+  CheckCircle,
+  RefreshCw,
+  Smartphone,
+  Instagram,
   MessageSquare,
   ArrowLeft,
   ChevronRight,
   ShieldAlert,
-  Pencil
+  Pencil,
+  ImagePlus,
+  Crop
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useConfig, Project } from '../context/ConfigContext';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
+import ImageCropModal from '../components/ImageCropModal';
+
+// Lê um arquivo de imagem como data URL para alimentar o editor de corte
+function readFileAsDataURL(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = () => reject(new Error('Falha ao ler o arquivo.'));
+    reader.readAsDataURL(file);
+  });
+}
 
 
 // Gradientes disponíveis para o Portfólio
@@ -89,7 +102,56 @@ export default function Admin() {
   const [newSolution, setNewSolution] = useState('');
   const [newResult, setNewResult] = useState('');
   const [newGradient, setNewGradient] = useState(gradientOptions[0].value);
-  const [newImagesText, setNewImagesText] = useState('');
+
+  // Galeria de imagens do projeto (caminhos, URLs ou data URLs cortadas)
+  const [newImages, setNewImages] = useState<string[]>([]);
+  const [imageUrlInput, setImageUrlInput] = useState('');
+  // Editor de corte: imagem aberta e, se for re-edição, o índice a substituir
+  const [cropTarget, setCropTarget] = useState<{ src: string; replaceIndex: number | null } | null>(null);
+  const [cropQueue, setCropQueue] = useState<string[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Processa a fila de anexos: quando o editor fecha, abre a próxima imagem
+  useEffect(() => {
+    if (!cropTarget && cropQueue.length > 0) {
+      setCropTarget({ src: cropQueue[0], replaceIndex: null });
+      setCropQueue((prev) => prev.slice(1));
+    }
+  }, [cropTarget, cropQueue]);
+
+  // Anexar arquivos: cada imagem selecionada passa pelo editor de corte
+  const handleFilesSelected = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = (e.target.files ? Array.from(e.target.files) : []).filter((f: any) => f.type.startsWith('image/'));
+    e.target.value = '';
+    if (files.length === 0) return;
+    try {
+      const dataUrls = await Promise.all(files.map(readFileAsDataURL));
+      setCropQueue((prev) => [...prev, ...dataUrls]);
+    } catch {
+      alert('Não foi possível ler um dos arquivos selecionados.');
+    }
+  };
+
+  const handleCropSave = (croppedDataUrl: string) => {
+    if (cropTarget?.replaceIndex != null) {
+      const idx = cropTarget.replaceIndex;
+      setNewImages((prev) => prev.map((img, i) => (i === idx ? croppedDataUrl : img)));
+    } else {
+      setNewImages((prev) => [...prev, croppedDataUrl]);
+    }
+    setCropTarget(null);
+  };
+
+  const handleAddImageUrl = () => {
+    const url = imageUrlInput.trim();
+    if (!url) return;
+    setNewImages((prev) => [...prev, url]);
+    setImageUrlInput('');
+  };
+
+  const handleRemoveImage = (index: number) => {
+    setNewImages((prev) => prev.filter((_, i) => i !== index));
+  };
 
   // Login
   const handleLogin = (e: React.FormEvent) => {
@@ -132,8 +194,8 @@ export default function Admin() {
     setNewSolution(project.solution);
     setNewResult(project.result);
     setNewGradient(project.highlightColor);
-    setNewImagesText(project.images.join(', '));
-    
+    setNewImages(project.images);
+
     setActiveTab('portfolio');
     window.scrollTo({ top: 350, behavior: 'smooth' });
   };
@@ -150,7 +212,10 @@ export default function Admin() {
     setNewSolution('');
     setNewResult('');
     setNewGradient(gradientOptions[0].value);
-    setNewImagesText('');
+    setNewImages([]);
+    setImageUrlInput('');
+    setCropTarget(null);
+    setCropQueue([]);
   };
 
   // Cadastrar ou Editar Projeto
@@ -162,11 +227,7 @@ export default function Admin() {
     }
 
     const techArray = newTechs.split(',').map(t => t.trim()).filter(t => t !== '');
-    const imagesArray = newImagesText.split(',')
-      .map(img => img.trim())
-      .filter(img => img !== '');
-
-    const finalImages = imagesArray.length > 0 ? imagesArray : ['/imgs/sobre nos.webp'];
+    const finalImages = newImages.length > 0 ? newImages : ['/imgs/sobre nos.webp'];
 
     if (editingProjectId) {
       // Atualizar projeto existente
@@ -214,7 +275,8 @@ export default function Admin() {
     setNewSolution('');
     setNewResult('');
     setNewGradient(gradientOptions[0].value);
-    setNewImagesText('');
+    setNewImages([]);
+    setImageUrlInput('');
   };
 
   // Resetar Configurações
@@ -605,16 +667,86 @@ export default function Admin() {
 
                       <div>
                         <label className="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">
-                          Links das Imagens da Galeria (Separados por vírgula)
+                          Imagens da Galeria
                         </label>
-                        <textarea
-                          value={newImagesText}
-                          onChange={(e) => setNewImagesText(e.target.value)}
-                          placeholder="Ex: /imgs/erp.webp, /imgs/bi.webp (Você pode usar caminhos locais ou URLs públicas)"
-                          rows={2}
-                          className="w-full px-4 py-3 bg-black/40 border border-white/10 focus:border-[#6D28D9] focus:outline-none rounded-xl text-white text-sm"
+
+                        {/* Miniaturas + tile de anexar */}
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                          {newImages.map((img, idx) => (
+                            <div
+                              key={`${idx}-${img.slice(0, 40)}`}
+                              className="group relative aspect-video rounded-xl overflow-hidden border border-white/10 bg-black/40"
+                            >
+                              <img src={img} alt={`Imagem ${idx + 1} da galeria`} className="w-full h-full object-cover" />
+                              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                                <button
+                                  type="button"
+                                  onClick={() => setCropTarget({ src: img, replaceIndex: idx })}
+                                  className="w-9 h-9 rounded-lg bg-[#6D28D9]/20 hover:bg-[#6D28D9]/40 text-[#a78bfa] border border-[#6D28D9]/30 flex items-center justify-center transition-colors cursor-pointer"
+                                  title="Cortar / reposicionar"
+                                >
+                                  <Crop className="w-4 h-4" />
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => handleRemoveImage(idx)}
+                                  className="w-9 h-9 rounded-lg bg-red-500/20 hover:bg-red-500/40 text-red-400 border border-red-500/30 flex items-center justify-center transition-colors cursor-pointer"
+                                  title="Remover imagem"
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                </button>
+                              </div>
+                              <span className="absolute bottom-1.5 left-1.5 px-1.5 py-0.5 bg-black/70 rounded text-[9px] font-bold text-white/60">
+                                {idx + 1}
+                              </span>
+                            </div>
+                          ))}
+
+                          <button
+                            type="button"
+                            onClick={() => fileInputRef.current?.click()}
+                            className="aspect-video rounded-xl border-2 border-dashed border-white/15 hover:border-[#6D28D9]/60 bg-black/20 hover:bg-[#6D28D9]/5 text-gray-400 hover:text-[#a78bfa] flex flex-col items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                          >
+                            <ImagePlus className="w-6 h-6" />
+                            <span className="text-[11px] font-semibold">Anexar imagem</span>
+                          </button>
+                        </div>
+
+                        <input
+                          ref={fileInputRef}
+                          type="file"
+                          accept="image/*"
+                          multiple
+                          onChange={handleFilesSelected}
+                          className="hidden"
                         />
-                        <p className="text-[10px] text-gray-500 mt-1">Insira os caminhos das imagens. Caso deixe vazio, usaremos um placeholder padrão.</p>
+
+                        {/* Adicionar por URL */}
+                        <div className="flex gap-2 mt-3">
+                          <input
+                            type="text"
+                            value={imageUrlInput}
+                            onChange={(e) => setImageUrlInput(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                e.preventDefault();
+                                handleAddImageUrl();
+                              }
+                            }}
+                            placeholder="Ou cole um caminho/URL: /imgs/erp.webp, https://..."
+                            className="flex-1 px-4 py-2.5 bg-black/40 border border-white/10 focus:border-[#6D28D9] focus:outline-none rounded-xl text-white text-sm"
+                          />
+                          <button
+                            type="button"
+                            onClick={handleAddImageUrl}
+                            className="px-4 py-2.5 bg-white/5 border border-white/10 hover:border-[#6D28D9]/50 text-gray-300 hover:text-white text-sm font-semibold rounded-xl transition-colors cursor-pointer"
+                          >
+                            Adicionar
+                          </button>
+                        </div>
+                        <p className="text-[10px] text-gray-500 mt-1">
+                          Ao anexar um arquivo, o editor abre para cortar e reposicionar (16:9). Passe o mouse sobre uma miniatura para re-editar ou remover. Se vazio, usaremos um placeholder padrão.
+                        </p>
                       </div>
 
                       <div className="flex gap-4">
@@ -695,6 +827,15 @@ export default function Admin() {
           </div>
         )}
       </main>
+
+      {/* Editor de corte / reposicionamento de imagens */}
+      {cropTarget && (
+        <ImageCropModal
+          src={cropTarget.src}
+          onSave={handleCropSave}
+          onCancel={() => setCropTarget(null)}
+        />
+      )}
 
       <Footer />
     </div>
