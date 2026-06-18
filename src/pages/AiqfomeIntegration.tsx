@@ -142,7 +142,7 @@ export default function AiqfomeIntegration() {
 
                   <div>
                     <a 
-                      href="https://api.aiqfome.com.br/oauth/user/authorize?clientId=s9lbIoAyG5JHynEHuVpzI-9I0Gmp4Vs2TPVJRWIiau8&redirectUri=https://pdv.heso.com.br/api/aiqfome-callback.php" 
+                      href="https://api.aiqfome.com.br/oauth/user/authorize?clientId=s9lbIoAyG5JHynEHuVpzI-9I0Gmp4Vs2TPVJRWIiau8&redirectUri=https://pdv.heso.com.br/api/aiqfome-callback" 
                       className="w-full text-center block px-6 py-3 bg-heso-purple hover:bg-heso-violet text-white rounded-full text-xs font-mono uppercase tracking-[0.15em] font-semibold transition-all shadow-lg shadow-heso-purple/20"
                     >
                       Autorizar Acesso ao aiqfome

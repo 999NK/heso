@@ -1,0 +1,84 @@
+export default async function handler(req, res) {
+  // Allow CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  const code = req.query.code;
+  if (!code) {
+    return res.status(400).json({ error: 'Código de autorização ausente.' });
+  }
+
+  const clientId = process.env.AIQFOME_CLIENT_ID;
+  const clientSecret = process.env.AIQFOME_CLIENT_SECRET;
+  const redirectUri = process.env.AIQFOME_REDIRECT_URI || 'https://pdv.heso.com.br/api/aiqfome-callback';
+
+  try {
+    // 1. Exchange authorization code for tokens
+    const tokenResponse = await fetch('https://api.aiqfome.com.br/oauth/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: new URLSearchParams({
+        grantType: 'authorization_code',
+        clientId: clientId,
+        clientSecret: clientSecret,
+        authorizationCode: code,
+        redirectUri: redirectUri
+      })
+    });
+
+    if (!tokenResponse.ok) {
+      const errDetails = await tokenResponse.text();
+      return res.status(tokenResponse.status).json({
+        error: 'Erro ao trocar código por token no aiqfome.',
+        details: errDetails
+      });
+    }
+
+    const data = await tokenResponse.json();
+    const accessToken = data.accessToken;
+    const refreshToken = data.refreshToken || null;
+    const expiresIn = data.expiresIn || 21600;
+
+    // 2. Save tokens to Supabase using standard REST API
+    const supabaseResponse = await fetch(`${process.env.SUPABASE_URL}/rest/v1/integrations?on_conflict=provider`, {
+      method: 'POST',
+      headers: {
+        'apikey': process.env.SUPABASE_SECRET_KEY,
+        'Authorization': `Bearer ${process.env.SUPABASE_SECRET_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'resolution=merge-duplicates'
+      },
+      body: JSON.stringify({
+        provider: 'aiqfome',
+        access_token: accessToken,
+        refresh_token: refreshToken,
+        expires_in: expiresIn,
+        updated_at: new Date().toISOString()
+      })
+    });
+
+    if (!supabaseResponse.ok) {
+      const dbErr = await supabaseResponse.text();
+      return res.status(500).json({
+        error: 'Erro ao salvar credenciais no banco de dados.',
+        details: dbErr
+      });
+    }
+
+    // Redirect merchant back to the frontend integration page
+    res.writeHead(302, { Location: 'https://pdv.heso.com.br/integracoes/aiqfome?status=success' }).end();
+
+  } catch (error) {
+    return res.status(500).json({
+      error: 'Erro interno no servidor.',
+      details: error.message
+    });
+  }
+}

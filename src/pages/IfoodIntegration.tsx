@@ -142,7 +142,7 @@ export default function IfoodIntegration() {
 
                   <div>
                     <a 
-                      href="https://merchant-api.ifood.com.br/v1.0/oauth/user/authorize?clientId=e11f5ec5-a5e6-4bf7-8479-6f9bc3064135&redirectUri=https://pdv.heso.com.br/api/ifood-callback.php" 
+                      href="https://merchant-api.ifood.com.br/v1.0/oauth/user/authorize?clientId=e11f5ec5-a5e6-4bf7-8479-6f9bc3064135&redirectUri=https://pdv.heso.com.br/api/ifood-callback" 
                       className="w-full text-center block px-6 py-3 bg-red-500/80 hover:bg-red-500 text-white rounded-full text-xs font-mono uppercase tracking-[0.15em] font-semibold transition-all shadow-lg shadow-red-500/20"
                     >
                       Autorizar Acesso ao iFood
