@@ -2,15 +2,19 @@
   RewriteEngine On
   RewriteBase /
 
-  # Se o arquivo solicitado existe fisicamente na raiz, serve direto (ex: .well-known, etc)
+  # Executa estas regras APENAS para o domínio principal (heso.com.br ou www.heso.com.br)
+  # Impede que elas interfiram no subdomínio pdv.heso.com.br
+  RewriteCond %{HTTP_HOST} ^(www\.)?heso\.com\.br$ [NC]
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
-  # Se o arquivo solicitado existe dentro de dist/ (ex: assets, imagens), serve de lá
+  # Se o arquivo solicitado existe dentro de dist/, serve de lá
+  RewriteCond %{HTTP_HOST} ^(www\.)?heso\.com\.br$ [NC]
   RewriteCond %{DOCUMENT_ROOT}/dist%{REQUEST_URI} -f
   RewriteRule ^(.*)$ dist/$1 [L]
 
   # Qualquer outra rota do React Router vai para dist/index.html
+  RewriteCond %{HTTP_HOST} ^(www\.)?heso\.com\.br$ [NC]
   RewriteRule . dist/index.html [L]
 </IfModule>
