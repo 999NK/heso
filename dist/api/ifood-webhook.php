@@ -42,11 +42,12 @@ $dbName = getenv('SUPABASE_DB_NAME') ?: 'postgres';
 $dbUser = getenv('SUPABASE_DB_USER') ?: 'postgres';
 $dbPass = getenv('SUPABASE_DB_PASS');
 
+// Chave secreta de validação do webhook do iFood (do .env)
+$webhookSecret = getenv('IFOOD_WEBHOOK_SECRET');
+
 // ========================================
 // Verificação de método HTTP
 // ========================================
-// O iFood faz um GET para testar a conexão e POST para enviar eventos.
-
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Teste de conexão do iFood — retorna 200 OK
     http_response_code(200);
@@ -61,10 +62,46 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // ========================================
-// Leitura do payload do evento
+// Leitura e Validação da Assinatura do iFood
 // ========================================
 $rawBody = file_get_contents('php://input');
-$events  = json_decode($rawBody, true);
+
+// 1. Captura o cabeçalho X-iFood-Signature
+$headers = getallheaders();
+$receivedSignature = null;
+foreach ($headers as $name => $value) {
+    if (strtolower($name) === 'x-ifood-signature') {
+        $receivedSignature = $value;
+        break;
+    }
+}
+
+// 2. Valida se o webhookSecret está configurado e se a assinatura foi recebida
+if ($webhookSecret) {
+    if (!$receivedSignature) {
+        http_response_code(401);
+        echo json_encode(['error' => 'Assinatura X-iFood-Signature ausente.']);
+        exit;
+    }
+
+    // 3. Calcula o hash HMAC-SHA256 esperado usando o corpo bruto e o segredo do webhook
+    $expectedSignature = hash_hmac('sha256', $rawBody, $webhookSecret);
+
+    // 4. Compara com segurança temporal constante (evita timing attacks)
+    if (!hash_equals($expectedSignature, $receivedSignature)) {
+        http_response_code(401);
+        echo json_encode([
+            'error' => 'Assinatura inválida. Acesso não autorizado.',
+            'debug' => 'Opcional: Garanta que o IFOOD_WEBHOOK_SECRET do seu arquivo .env corresponde ao do portal do desenvolvedor do iFood.'
+        ]);
+        exit;
+    }
+}
+
+// ========================================
+// Leitura do payload do evento
+// ========================================
+$events = json_decode($rawBody, true);
 
 if (!$events) {
     http_response_code(400);
