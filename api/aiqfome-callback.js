@@ -19,17 +19,17 @@ export default async function handler(req, res) {
 
   try {
     // 1. Exchange authorization code for tokens
-    const tokenResponse = await fetch('https://api.aiqfome.com.br/oauth/token', {
+    const tokenResponse = await fetch('https://id.magalu.com/oauth/token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       body: new URLSearchParams({
-        grantType: 'authorization_code',
-        clientId: clientId,
-        clientSecret: clientSecret,
-        authorizationCode: code,
-        redirectUri: redirectUri
+        grant_type: 'authorization_code',
+        client_id: clientId,
+        client_secret: clientSecret,
+        code: code,
+        redirect_uri: redirectUri
       })
     });
 
@@ -42,9 +42,9 @@ export default async function handler(req, res) {
     }
 
     const data = await tokenResponse.json();
-    const accessToken = data.accessToken;
-    const refreshToken = data.refreshToken || null;
-    const expiresIn = data.expiresIn || 21600;
+    const accessToken = data.access_token || data.accessToken;
+    const refreshToken = data.refresh_token || data.refreshToken || null;
+    const expiresIn = data.expires_in || data.expiresIn || 21600;
 
     // 2. Save tokens to Supabase using standard REST API
     const supabaseResponse = await fetch(`${process.env.SUPABASE_URL}/rest/v1/integrations?on_conflict=provider`, {
