@@ -28,18 +28,19 @@ export default async function handler(req, res) {
   }
 
   try {
+    const bodyParams = new URLSearchParams();
+    bodyParams.append("client_id", clientId);
+    bodyParams.append("client_secret", clientSecret);
+    bodyParams.append("redirect_uri", redirectUri);
+    bodyParams.append("code", code);
+    bodyParams.append("grant_type", "authorization_code");
+
     const tokenResponse = await fetch('https://id.magalu.com/oauth/token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
-      body: new URLSearchParams({
-        grant_type: 'authorization_code',
-        client_id: clientId,
-        client_secret: clientSecret,
-        code: code,
-        redirect_uri: redirectUri
-      })
+      body: bodyParams.toString()
     });
 
     if (!tokenResponse.ok) {
