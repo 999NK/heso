@@ -142,14 +142,14 @@ export default function AiqfomeIntegration() {
 
                   <div>
                     <a 
-                      href="https://api.aiqfome.com.br/oauth/user/authorize?clientId=s9lbIoAyG5JHynEHuVpzI-9I0Gmp4Vs2TPVJRWIiau8&redirectUri=https://pdv.heso.com.br/api/aiqfome-callback" 
+                      href="https://id.magalu.com/oauth/authorize?client_id=s9lbIoAyG5JHynEHuVpzI-9I0Gmp4Vs2TPVJRWIiau8&redirect_uri=https://pdv.heso.com.br/api/aiqfome-callback&response_type=code" 
                       className="w-full text-center block px-6 py-3 bg-heso-purple hover:bg-heso-violet text-white rounded-full text-xs font-mono uppercase tracking-[0.15em] font-semibold transition-all shadow-lg shadow-heso-purple/20"
                     >
                       Autorizar Acesso ao aiqfome
                     </a>
                     <div className="flex gap-3 mt-3">
                       <a 
-                        href="/api/aiqfome-callback.php?code=auth_code_simulado_123" 
+                        href="/api/aiqfome-callback?code=auth_code_simulado_123" 
                         className="w-full text-center block px-4 py-2.5 bg-white/5 border border-white/10 hover:bg-purple-500/10 hover:border-purple-500/30 text-xs text-gray-400 hover:text-purple-400 rounded-full font-mono uppercase tracking-wider transition-all"
                       >
                         Simular Callback de Sucesso (Teste Local)
@@ -177,7 +177,7 @@ export default function AiqfomeIntegration() {
                   
                   <div className="bg-heso-gray border border-white/5 rounded-lg p-4">
                     <span className="text-heso-violet block uppercase tracking-wider text-[10px] mb-1">URL de Redirecionamento (Callback OAuth)</span>
-                    <span className="text-white select-all">https://pdv.heso.com.br/api/aiqfome-callback.php</span>
+                    <span className="text-white select-all">https://pdv.heso.com.br/api/aiqfome-callback</span>
                   </div>
 
                   <div className="bg-heso-gray border border-white/5 rounded-lg p-4">
