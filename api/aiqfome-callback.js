@@ -42,9 +42,18 @@ export default async function handler(req, res) {
 
     if (!tokenResponse.ok) {
       const errDetails = await tokenResponse.text();
+      const mask = (str) => {
+        if (!str) return 'undefined';
+        return `${str.substring(0, 4)}...${str.substring(str.length - 4)} (len: ${str.length})`;
+      };
       return res.status(tokenResponse.status).json({
         error: 'Erro ao trocar código por token no aiqfome.',
-        details: errDetails
+        details: errDetails,
+        debug_env: {
+          client_id: mask(clientId),
+          client_secret: mask(clientSecret),
+          redirect_uri: redirectUri
+        }
       });
     }
 
