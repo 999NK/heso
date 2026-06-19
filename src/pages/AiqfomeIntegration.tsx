@@ -142,7 +142,7 @@ export default function AiqfomeIntegration() {
 
                   <div>
                     <a 
-                      href="https://id.magalu.com/oauth/authorize?client_id=s9lbIoAyG5JHynEHuVpzI-9I0Gmp4Vs2TPVJRWIiau8&redirect_uri=https://pdv.heso.com.br/api/aiqfome-callback&response_type=code" 
+                      href="https://id.magalu.com/oauth/authorize?client_id=s9lbIoAyG5JHynEHuVpzI-9I0Gmp4Vs2TPVJRWIiau8&redirect_uri=https://pdv.heso.com.br/api/aiqfome-callback&response_type=code&scope=aqf:menu:create%20aqf:menu:read%20aqf:order:create%20aqf:order:read%20aqf:store:read%20aqf:store:create" 
                       className="w-full text-center block px-6 py-3 bg-heso-purple hover:bg-heso-violet text-white rounded-full text-xs font-mono uppercase tracking-[0.15em] font-semibold transition-all shadow-lg shadow-heso-purple/20"
                     >
                       Autorizar Acesso ao aiqfome
