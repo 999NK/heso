@@ -15,7 +15,10 @@ export default async function handler(req, res) {
 
   const clientId = process.env.AIQFOME_CLIENT_ID;
   const clientSecret = process.env.AIQFOME_CLIENT_SECRET;
-  const redirectUri = process.env.AIQFOME_REDIRECT_URI || 'https://pdv.heso.com.br/api/aiqfome-callback';
+  let redirectUri = process.env.AIQFOME_REDIRECT_URI || 'https://pdv.heso.com.br/api/aiqfome-callback';
+  if (redirectUri.endsWith('.php')) {
+    redirectUri = redirectUri.slice(0, -4);
+  }
 
   if (!clientId || !clientSecret) {
     return res.status(500).json({

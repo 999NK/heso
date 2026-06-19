@@ -15,7 +15,10 @@ export default async function handler(req, res) {
 
   const clientId = process.env.IFOOD_CLIENT_ID;
   const clientSecret = process.env.IFOOD_CLIENT_SECRET;
-  const redirectUri = process.env.IFOOD_REDIRECT_URI || 'https://pdv.heso.com.br/api/ifood-callback';
+  let redirectUri = process.env.IFOOD_REDIRECT_URI || 'https://pdv.heso.com.br/api/ifood-callback';
+  if (redirectUri.endsWith('.php')) {
+    redirectUri = redirectUri.slice(0, -4);
+  }
 
   if (!clientId || !clientSecret) {
     return res.status(500).json({
