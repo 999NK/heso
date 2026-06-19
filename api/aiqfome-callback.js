@@ -28,15 +28,15 @@ export default async function handler(req, res) {
   }
 
   try {
-    const credentials = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
     const tokenResponse = await fetch('https://id.magalu.com/oauth/token', {
       method: 'POST',
       headers: {
-        'Authorization': `Basic ${credentials}`,
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       body: new URLSearchParams({
         grant_type: 'authorization_code',
+        client_id: clientId,
+        client_secret: clientSecret,
         code: code,
         redirect_uri: redirectUri
       })
