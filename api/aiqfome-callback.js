@@ -17,6 +17,13 @@ export default async function handler(req, res) {
   const clientSecret = process.env.AIQFOME_CLIENT_SECRET;
   const redirectUri = process.env.AIQFOME_REDIRECT_URI || 'https://pdv.heso.com.br/api/aiqfome-callback';
 
+  if (!clientId || !clientSecret) {
+    return res.status(500).json({
+      error: 'Variáveis de ambiente não configuradas na Vercel.',
+      details: 'As variáveis AIQFOME_CLIENT_ID ou AIQFOME_CLIENT_SECRET não foram encontradas nas configurações de variáveis de ambiente da Vercel. Certifique-se de adicioná-las no dashboard da Vercel.'
+    });
+  }
+
   try {
     // 1. Exchange authorization code for tokens
     const tokenResponse = await fetch('https://id.magalu.com/oauth/token', {
